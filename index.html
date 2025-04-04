@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>香港收音機電台</title>
+    <link rel="stylesheet" href="hkradio.css">
+    
+</head>
+<body>
+    <header>香港收音機電台</header>
+    
+    <div class="stations">
+        <!-- 香港電台 -->
+        <div class="station" data-station="rthk1" data-name="香港電台第一台">
+            <img src="https://cdn.webrad.io/images/logos/radios-hk/rthk-1.png" alt="RTHK">
+            <p>香港電台第一台</p>
+        </div>
+        
+        <div class="station" data-station="rthk2" data-name="香港電台第二台">
+            <img src="https://www.rthk.hk/img/apple-icon-114x114.png" alt="RTHK">
+            <p>香港電台第二台</p>
+        </div>
+        
+        <!-- 新城電台 -->
+        <div class="station" data-station="metro1" data-name="新城知訊台">
+            <img src="https://cdn.instant.audio/images/logos/radios-hk/metro-showbiz-fm.png" alt="Metro Radio">
+            <p>新城知訊台</p>
+        </div>
+        
+        <div class="station" data-station="metro2" data-name="新城財經台">
+            <img src="https://cdn.instant.audio/images/logos/radios-hk/metro-finance-fm.png" alt="Metro Radio">
+            <p>新城財經台</p>
+        </div>
+        
+        <!-- 商業電台 -->
+        <div class="station" data-station="cr1" data-name="雷霆881">
+            <img src="https://www.881903.com/share.png" alt="Commercial Radio 881">
+            <p><a href="https://www.881903.com/live/881" target="_blank">雷霆881</a></p>
+        </div>
+
+        <div class="station" data-station="cr2" data-name="叱咤903">
+            <img src="https://www.881903.com/share.png" alt="Commercial Radio">
+            <p><a href="https://www.881903.com/live/903" target="_blank">叱咤903</a></p>
+        </div>
+	<!-- 香港電台 -->
+        <div class="station" data-station="rthk3" data-name="香港電台第三台">
+            <img src="https://www.rthk.hk/img/apple-icon-114x114.png" alt="RTHK">
+            <p>香港電台第三台</p>
+        </div>
+        
+        <div class="station" data-station="rthk4" data-name="香港電台第四台">
+            <img src="https://www.rthk.hk/img/apple-icon-114x114.png" alt="RTHK">
+            <p>香港電台第四台</p>
+        </div>
+
+        <div class="station" data-station="rthk5" data-name="香港電台第五台">
+            <img src="https://www.rthk.hk/img/apple-icon-114x114.png" alt="RTHK">
+            <p>香港電台第五台</p>
+        </div>
+       
+	 <div class="station" data-station="rthk_pth" data-name="香港電台普通話台">
+            <img src="https://www.rthk.hk/img/apple-icon-114x114.png" alt="RTHK">
+            <p>香港電台普通話台</p>
+        </div>
+
+     <div class="station" data-station="metro1044" data-name="Metro Plus AM1044">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNMHNUQklLiwV95JbCYaxW22hy5mMqCqxm1w&usqp=CAU" alt="Metro Radio">
+            <p><a href="https://metroradio.com.hk/plus/" target="_blank">Metro Plus AM1044</a></p>
+        </div>
+
+     <div class="station" data-station="ufofm1007" data-name="澳門電台 FM100.7">
+            <img src="https://cdn.sao.fm/wp-content/uploads/20240115003259241.jpg" alt="Macao UFO Radio">
+            <p>澳門電台 FM100.7</p>
+        </div>
+
+     <div class="station" data-station="vfm995" data-name="澳門綠邨電台">
+            <img src="https://www.vfm995.com/webpage/pcplay.png" alt="Macao VFM Radio">
+            <p>澳門綠邨電台</p>
+        </div>
+
+
+
+    </div>
+    
+    <div class="player-bar" id="playerBar">
+        <div class="player-info">
+            <img id="currentStationLogo" src="https://via.placeholder.com/40" alt="Current Station">
+            <div class="station-name" id="currentStationName">未選擇電台</div>
+        </div>
+        <div class="player-controls">
+            <button id="playPauseBtn">▶️</button>
+            <div class="volume-control">
+                <span>🔊</span>
+                <input type="range" id="volumeControl" min="0" max="1" step="0.1" value="0.7">
+            </div>
+        </div>
+    </div>
+
+    <audio id="audioPlayer"></audio>
+
+    <script src="hkradio.js"></script>
+</body>
+</html>
