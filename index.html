@@ -4,8 +4,133 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>香港收音機電台</title>
-    <link rel="stylesheet" href="hkradio.css">
-    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: #f5f5f5;
+            color: #333;
+	    width: 80%;
+            margin: 0 auto;
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        header {
+            background: #e53935;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .stations {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+            height: calc(100vh - 150px);
+            overflow-y: auto;
+        }
+        
+        .station {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .station:hover {
+            transform: scale(1.05);
+        }
+        
+        .station img {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 10px;
+        }
+        
+        .station p {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .player-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #333;
+            color: white;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .player-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 60%;
+        }
+        
+        .player-info img {
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+        }
+        
+        .station-name {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 14px;
+        }
+        
+        .player-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .player-controls button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .volume-control input {
+            width: 80px;
+        }
+    </style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3980427184868210"
+     crossorigin="anonymous"></script>
+
 </head>
 <body>
     <header>香港收音機電台</header>
@@ -99,6 +224,166 @@
 
     <audio id="audioPlayer"></audio>
 
-    <script src="hkradio.js"></script>
+    <script>
+        // Radio station streams (replace with actual streams)
+        const stations = {
+            rthk1: {
+                name: "香港電台第一台",
+                logo: "https://cdn.webrad.io/images/logos/radios-hk/rthk-1.png",
+                stream: "https://rthkaudio1-lh.akamaihd.net/i/radio1_1@355864/index_56_a-p.m3u8"
+            },
+            rthk2: {
+                name: "香港電台第二台",
+                logo: "https://www.rthk.hk/img/apple-icon-114x114.png",
+                stream: "https://rthkaudio2-lh.akamaihd.net/i/radio2_1@355865/index_56_a-p.m3u8"
+            },
+            metro1: {
+                name: "新城知訊台",
+                logo: "https://cdn.instant.audio/images/logos/radios-hk/metro-showbiz-fm.png",
+                stream: "https://1849807346.rsc.cdn77.org/1849807346/tracks-a1/mono.ts.m3u8"
+            },
+            metro2: {
+                name: "新城財經台",
+                logo: "https://cdn.instant.audio/images/logos/radios-hk/metro-finance-fm.png",
+                stream: "https://1864288729.rsc.cdn77.org/1864288729/tracks-a1/mono.m3u8"
+            },
+            cr1: {
+                name: "雷霆881",
+                logo: "https://www.881903.com/share.png",
+                stream: "https://playlist.881903.com/web/v4/881hd/playlist.js?t=1743572587&n1=37beb1d13332bcd5ee28&n2=UiDf8%2F91DivRkgCXqSfvbWlgJuc%3D"
+            },
+            cr2: {
+                name: "叱咤903",
+                logo: "https://upload.wikimedia.org/wikipedia/zh/6/62/Commercial_Radio_Hong_Kong_Logo.png",
+                stream: "https://stream.radio.co/s9e5e7d7f9/listen"
+            },
+           
+	rthk3: {
+                name: "香港電台第三台",
+                logo: "https://www.rthk.hk/img/apple-icon-114x114.png",
+                stream: "https://rthkaudio3-lh.akamaihd.net/i/radio3_1@355866/index_56_a-p.m3u8"
+            },
+            rthk4: {
+                name: "香港電台第四台",
+                logo: "https://www.rthk.hk/img/apple-icon-114x114.png",
+                stream: "https://rthkradio4-live.akamaized.net/hls/live/2040080/radio4/master.m3u8"
+            },
+
+ 	rthk5: {
+                name: "香港電台第五台",
+                logo: "https://www.rthk.hk/img/apple-icon-114x114.png",
+                stream: "https://rthkaudio5-lh.akamaihd.net/i/radio5_1@355868/index_56_a-p.m3u8"
+            },
+
+	rthk_pth: {
+                name: "香港電台普通話台",
+                logo: "https://webstatic.rthk.hk/img/radio_icon/ChannelPage_Logo/radio_PTH_logo.svg",
+                stream: "https://rthkradiopth-live.akamaized.net/hls/live/2040082/radiopth/master.m3u8"
+            },
+	metro1044: {
+                name: "Metro Plus AM1044",
+                logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNMHNUQklLiwV95JbCYaxW22hy5mMqCqxm1w&usqp=CAU",
+                stream: "http://162.220.162.10:8011/stream"
+            },
+
+	ufofm1007: {
+                name: "澳門電台 FM100.7",
+                logo: "https://cdn.sao.fm/wp-content/uploads/20240115003259241.jpg",
+                stream: "https://mo.ufofm.com/live/rch2.live/chunklist_w905210118.m3u8?audio"
+            },
+
+	vfm995: {
+                name: "澳門綠邨電台",
+                logo: "https://www.vfm995.com/webpage/pcplay.png",
+                stream: "https://fm995.ddns.net/hls1/fm995.m3u8"
+            },
+        };
+
+        // DOM elements
+        const audioPlayer = document.getElementById('audioPlayer');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const volumeControl = document.getElementById('volumeControl');
+        const currentStationLogo = document.getElementById('currentStationLogo');
+        const currentStationName = document.getElementById('currentStationName');
+        const playerBar = document.getElementById('playerBar');
+        const stationElements = document.querySelectorAll('.station');
+
+        // Current station
+        let currentStation = null;
+        let isPlaying = false;
+
+        // Set initial volume
+        audioPlayer.volume = volumeControl.value;
+
+        // Volume control
+        volumeControl.addEventListener('input', () => {
+            audioPlayer.volume = volumeControl.value;
+        });
+
+        // Play/pause button
+        playPauseBtn.addEventListener('click', togglePlayPause);
+
+        // Station click handlers
+        stationElements.forEach(station => {
+            station.addEventListener('click', () => {
+                const stationId = station.getAttribute('data-station');
+                playStation(stationId);
+            });
+        });
+
+        // Play a station
+        function playStation(stationId) {
+            const station = stations[stationId];
+            
+            if (!station) return;
+            
+            currentStation = station;
+            audioPlayer.src = station.stream;
+            audioPlayer.play()
+                .then(() => {
+                    isPlaying = true;
+                    updatePlayerUI();
+                })
+                .catch(error => {
+                    console.error('播放失敗:', error);
+                    alert('無法播放電台，請檢查網絡連接或嘗試其他電台');
+                });
+            
+            // Update UI
+            currentStationLogo.src = station.logo;
+            currentStationName.textContent = station.name;
+            
+            // Show player bar if hidden
+            playerBar.style.display = 'flex';
+        }
+
+        // Toggle play/pause
+        function togglePlayPause() {
+            if (!currentStation) return;
+            
+            if (isPlaying) {
+                audioPlayer.pause();
+                isPlaying = false;
+            } else {
+                audioPlayer.play()
+                    .then(() => {
+                        isPlaying = true;
+                    })
+                    .catch(error => {
+                        console.error('播放失敗:', error);
+                    });
+            }
+            
+            updatePlayerUI();
+        }
+
+        // Update player UI
+        function updatePlayerUI() {
+            playPauseBtn.textContent = isPlaying ? '⏸️' : '▶️';
+        }
+
+        // Initialize - hide player bar if no station is playing
+        playerBar.style.display = 'none';
+    </script>
 </body>
 </html>
